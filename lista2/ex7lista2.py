@@ -7,4 +7,5 @@ if numero < 0:
 else:
     raiz = math.sqrt(numero)
     print(f"A raiz quadrada de {numero} vale {raiz}")
+
     

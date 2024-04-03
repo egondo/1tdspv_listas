@@ -102,4 +102,3 @@ else:
 
 print("O numero sorteado era", num)
 
-
