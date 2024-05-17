@@ -13,10 +13,10 @@ mao_jogador2 = baralho.distribui(monte, 2)
 mesa = baralho.distribui(monte, 5)
 
 print("Jogador 1")
-print(mao_jogador1)
+print(baralho.to_str_mao(mao_jogador1))
 
 print("Mesa: ")
-print(mesa)
+print(baralho.to_str_mao(mesa))
 
 print("Jogador 2")
-print(mao_jogador2)
+print(baralho.to_str_mao(mao_jogador2))

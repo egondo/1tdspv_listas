@@ -36,7 +36,6 @@ def distribui(deck: list, qtd: int):
             qtd = qtd - 1
     return mao
 
-
 def embaralha(deck: list):
     tam = len(deck)
     for x in range(200):
@@ -45,6 +44,13 @@ def embaralha(deck: list):
         aux = deck[i]
         deck[i] = deck[j]
         deck[j] = aux    
+
+def to_str_mao(hand: list):
+    resp = ""
+    for carta in hand:
+        resp = resp + to_str(carta) + " "
+    return resp
+
 
 if __name__ == '__main__':
     monte = cria('normal')
