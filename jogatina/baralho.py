@@ -8,6 +8,11 @@ def cria(tipo):
         cartas.append( (valor, '♦') )
         cartas.append( (valor, '♣') )
     
+    if tipo == 'truco':
+        #remover as cartas de valor 8, 9 e 10 da lista
+        for i in range(12):
+            cartas.pop(28)
+            
     return cartas
 
 def to_str(carta):
