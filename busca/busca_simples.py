@@ -10,19 +10,19 @@ def busca(conjunto: list, valor: object) -> int:
     else:
         return -1
     
+if __name__ == '__main__':
+    lista = [2, -6, 9, 5, 2, 0, 4, 3, 12]
+    resp = busca(lista, 0)
+    print(resp)
 
-lista = [2, -6, 9, 5, 2, 0, 4, 3, 12]
-resp = busca(lista, 0)
-print(resp)
+    lista = [0] * 1_000_000
 
-lista = [0] * 1_000_000_000
+    ini = time.time()
+    resp = busca(lista, 1)
+    fim = time.time()
+    print(fim - ini)
 
-ini = time.time()
-resp = busca(lista, 1)
-fim = time.time()
-print(fim - ini)
-
-print(resp)
+    print(resp)
 
 
 
