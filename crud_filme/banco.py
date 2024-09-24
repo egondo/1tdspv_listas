@@ -19,6 +19,18 @@ def insere_filme(movie: dict):
     #cur.close()
     #con.close()
 
+
+def consulta_filme_por_id(id: int):
+    sql = '''select id, titulo, diretor, sinopse, classificacao,
+     data_lancamento, nota, genero from filme 
+     where id = :id'''
+
+    with get_conexao() as con:
+        with con.cursor() as cur:
+            cur.execute(sql, {"id": id})    
+            return cur.fetchone()
+
+
 def consulta_filme(genero: str) -> list:
     sql = '''select id, titulo, diretor, sinopse, classificacao,
      data_lancamento, nota, genero from filme 
