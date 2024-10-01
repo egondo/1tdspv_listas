@@ -19,3 +19,10 @@ def altera_time(time: dict):
         with con.cursor() as cur:
             cur.execute(sql, time)
         con.commit()
+
+def recupera_time_nome(nome: str) -> dict:
+    pass
+
+def insere_time(time: dict):
+    #insere o time pegando o id que foi gerado pelo banco de dados
+    pass
