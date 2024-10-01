@@ -4,7 +4,12 @@ def encontra_time(nome: str) -> dict:
     #recuperar o time pelo nome no banco de dados
     #se o time nao existe entao gravo o time no banco e retorno ele 
     #se o time ja existe entao simplesmente, retorno o time.
-    pass
+    time = banco.recupera_time_nome(nome)
+    if time == None:
+        time = {'nome': nome, 'vitorias': 0, 'empates': 0, 'derrotas': 0, 'gols_contra': 0, 'gols_pro': 0}
+        banco.insere_time(time)
+    
+    return time
 
 
 #{'nome': 'Palmeiras', 'vitorias': 2, 'empates': 1, 'derrotas': 0, 'gols_contra': 5, 'gols_pro': 9, 'id': 23}
@@ -34,6 +39,10 @@ def cadastra_partida(jogo: dict):
     banco.altera_time(time_casa)
     banco.altera_time(time_visi)
 
+    #colocar os ids dos times em casa e visi respectivamente
+    jogo['casa'] = time_casa['id']
+    jogo['visi'] = time_visi['id']
+    
     #cadastrar a partida no banco de dados
     banco.insere_partida(jogo)
 
