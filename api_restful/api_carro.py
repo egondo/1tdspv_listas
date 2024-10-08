@@ -38,6 +38,16 @@ def add_car():
     return f"http://localhost:5000/carros/{dado['id']}", 201
 
 
+@app.route("/carros", methods=["PUT"])
+def update_car():
+    dado = request.json
+    for i in range(len(db.carros)):
+        car = db.carros[i]
+        if car['id'] == dado['id']:
+            db.carros[i] = dado
+            return (dado, 200)
+    return {"title": "Nenhum carro encontrado com o id especificado", 
+            "status": 404}
 
 
 app.run(debug=True)
