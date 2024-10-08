@@ -1,11 +1,21 @@
 from flask import Flask, request, jsonify
 import db 
+import banco_oracle as bd
 
 app = Flask(__name__)
 
 @app.route("/carros", methods=["GET"])
 def get_all_cars():
     return db.carros    
+
+@app.route("/carros/oracle", methods=["GET"])
+def get_all_cars_oracle():
+    lista = []
+    res = bd.recupera_todos()
+    for car in res:
+        d = {"id": car[0], "modelo": car[1], "montadora": car[2], "placa": car[3], "ano": car[4]}
+        lista.append(d)
+    return (lista, 200)
 
 @app.route("/carros/<int:id>", methods=["GET"])
 def get_car_by_id(id: int):
@@ -38,6 +48,15 @@ def add_car():
     return f"http://localhost:5000/carros/{dado['id']}", 201
 
 
+@app.route("/carros/oracle", methods=["POST"])
+def add_car_oracle():
+    dado = request.json
+    try:
+        bd.insere(dado)
+        return dado, 200
+    except:
+        return {"title": "erro na inserção", "status": 404}, 404
+    
 @app.route("/carros", methods=["PUT"])
 def update_car():
     dado = request.json
