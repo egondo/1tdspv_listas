@@ -46,3 +46,15 @@ def cadastra_partida(jogo: dict):
     #cadastrar a partida no banco de dados
     banco.insere_partida(jogo)
 
+def recupera_times():
+    dados = banco.recupera_times()
+    for time in dados:
+        jogos = time['vitorias'] + time['derrotas'] + time['empates']
+        pontos = 3 * time['vitorias'] + time['empates']
+        aprov = pontos / (jogos * 3.0)
+        time['jogos'] = jogos
+        time['pontos'] = pontos
+        time['aproveitamento'] = aprov
+        time['saldo'] = time['gols_pro'] - time['gols_contra']
+    
+    return dados

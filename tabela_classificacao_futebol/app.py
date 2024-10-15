@@ -8,3 +8,6 @@ if __name__ == '__main__':
     partida = {'visi': 'Penarol', 'casa': 'Atlético Mineiro', 'gc': 2, 'gv': 0, 'rodada': 2}
     negocio.cadastra_partida(partida)
     
+    dados = negocio.recupera_times()
+    for time in dados:
+        print(time)

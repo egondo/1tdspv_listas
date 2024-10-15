@@ -32,6 +32,18 @@ def recupera_time_nome(nome: str) -> dict:
                 return {'id':reg[0], 'nome': reg[1], 'vitorias': reg[2], 'empates': reg[3], 'derrotas': reg[4], 'gols_contra': reg[5], 'gols_pro': reg[6]}
 
 
+def recupera_times() -> list:
+    sql = "select id, nome, vitorias, empates, derrotas, gols_contra, gols_pro from tb_time"
+    with get_conexao() as con:
+        with con.cursor() as cur:
+            cur.execute(sql)
+            registros = cur.fetchall()
+            lista = []
+            for reg in registros:
+                time = {'id':reg[0], 'nome': reg[1], 'vitorias': reg[2], 'empates': reg[3], 'derrotas': reg[4], 'gols_contra': reg[5], 'gols_pro': reg[6]}
+                lista.append(time)
+    return lista
+
 
 def insere_time(time: dict):
     #insere o time pegando o id que foi gerado pelo banco de dados
