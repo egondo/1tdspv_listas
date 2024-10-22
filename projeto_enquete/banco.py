@@ -4,6 +4,17 @@ def get_conexao():
     return oracledb.connect(user="pf0313", password="professor#23",
                         dsn="oracle.fiap.com.br/orcl")
 
+def recupera_enquete_perguntas(id_enquete: int):
+    sql = '''select enq.id, enq.nome, per.id, per.numero, per.texto, per.tipo, it.id, it.numero, it.descricao from tbv_enquete enq inner join tbv_pergunta per on enq.id=per.id_enquete left join tbv_item it on per.id = it.id_pergunta where enq.id = :id_enquete order by per.numero, it.numero'''
+
+    with get_conexao() as con:
+        with con.cursor() as cur:
+            cur.execute(sql, {"id_enquete": id_enquete})
+            return cur.fetchall()
+        
+
+
+
 def insere_enquete(enquete: dict):
     sql = "insert into tbv_enquete(nome) values(:nome) returning id into :id"
     with get_conexao() as con:
