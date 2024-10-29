@@ -26,6 +26,9 @@ if __name__ == "__main__":
 
     dic_datas = {}
     with open("faturamento_anual.txt", mode="w") as arq:
+
+        arq.write("produto;marca;loja;data;quantidade;valor\n")
+        
         i = 0
         while i < 5000:
             data = gera_data()
