@@ -2,7 +2,7 @@ from flask import Flask, request, jsonify
 import negocio
 import traceback
 
-app = Flask()
+app = Flask(__name__)
 
 @app.route("/enquetes", methods=["POST"])
 def cadastra_enquete():
@@ -14,17 +14,19 @@ def cadastra_enquete():
         traceback.print_exc()
         return {'title': "deu erro", 'status': 404}, 404
 
+
 @app.route("/enquetes", methods=["GET"])
 def recupera_todas_enquetes():
     return negocio.recupera_todas_enquetes(), 200
 
+
 @app.route("/enquetes/<int:id>", methods=["GET"])
-def recupera_todas_enquetes(id):
+def recupera_enquete(id):
     return negocio.recupera_enquete(id), 200
 
 @app.route("/respostas", methods=["POST"])
 def cadastra_respostas():
-    respostas = request.json()
+    respostas = request.json
     try:
         negocio.cadastra_respostas(respostas)
         return {"title": "Respostas gravadas com sucesso", 'status': 200}, 200

@@ -55,6 +55,7 @@ def cadastra_respostas(respostas: list):
         elif resp['numero'] == 3:
             pessoa['genero'] = resp['valor']
         else:
+            resp.pop('numero')
             lista_respostas.append(resp)
 
     banco.insere_pessoa(pessoa)
