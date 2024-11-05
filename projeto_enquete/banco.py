@@ -1,4 +1,5 @@
 import oracledb
+import datetime
 
 def get_conexao():
     return oracledb.connect(user="pf0313", password="professor#23",
@@ -13,6 +14,12 @@ def recupera_enquete_perguntas(id_enquete: int):
             return cur.fetchall()
         
 
+def recupera_enquetes():
+    sql = "select id, nome from tbv_enquete order by nome"
+    with get_conexao() as con:
+        with con.cursor() as cur:
+            cur.execute(sql)
+            return cur.fetchall()
 
 
 def insere_enquete(enquete: dict):
@@ -24,6 +31,28 @@ def insere_enquete(enquete: dict):
             cur.execute(sql, enquete)
             enquete['id'] = novo_id.getvalue()[0]
         print(enquete)
+        con.commit()
+
+
+def insere_pessoa(pes: dict):
+    sql = "insert into tbv_pessoa(nome, idade, genero, aplicacao) values(:nome, :idade, :genero, :aplicacao) returning id into :id"
+    with get_conexao() as con:
+        with con.cursor() as cur:
+            novo_id = cur.var(oracledb.NUMBER)
+            pes['id'] = novo_id
+            pes['aplicacao'] = datetime.date.today()
+            cur.execute(sql, pes)
+            pes['id'] = novo_id.getvalue()[0]
+        print(pes)
+        con.commit()
+
+def insere_respostas(respostas: list, id_pessoa: int):
+    sql = "insert into tbv_resposta(texto, id_pessoa, id_pergunta) values(:valor, :id_pessoa, :id_pergunta)"
+    with get_conexao() as con:
+        with con.cursor() as cur:
+            for resp in respostas:
+                resp['id_pessoa'] = id_pessoa
+                cur.execute(sql, resp)
         con.commit()
 
 

@@ -44,6 +44,36 @@ def recupera_enquete(id: int) -> dict:
 
     return retorno
 
+def cadastra_respostas(respostas: list):
+    pessoa = {}
+    lista_respostas = []
+    for resp in respostas:
+        if resp['numero'] == 1:
+            pessoa['nome'] = resp['valor']
+        elif resp['numero'] == 2:
+            pessoa['idade'] = int(resp['valor'])
+        elif resp['numero'] == 3:
+            pessoa['genero'] = resp['valor']
+        else:
+            lista_respostas.append(resp)
+
+    banco.insere_pessoa(pessoa)
+    banco.insere_respostas(lista_respostas, pessoa['id'])
+    '''[
+        {"valor": "Maria", "id_pergunta": 10, "numero": 1},
+        {"valor": "35", "id_pergunta": 11, "numero": 2},
+        {"valor": "feminino", "id_pergunta": 12, "numero": 3},
+        {"valor": "Boulos", "id_pergunta": 13, "numero": 4}
+        ]
+    '''
+
+def recupera_todas_enquetes():
+    lista = banco.recupera_enquetes()
+    retorno = []
+    for reg in lista:
+        retorno.append({"id": reg[0], "nome": reg[1]})
+    return retorno
+
 
 if __name__ == "__main__":
     e = {
