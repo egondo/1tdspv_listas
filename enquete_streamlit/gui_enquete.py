@@ -17,6 +17,8 @@ if lista.status_code == 200:
 
     nome_enquete = st.selectbox("Enquete", options=aux, index=None)
 
+    #pelo nome_enquete, procure na lista de enquete e descubra o id
+
     resposta = requests.get("http://127.0.0.1:5000/enquetes/3")
     
     with st.form("form"):
